@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ImagesApp</string>
+    <string name="retry">Повторить</string>
+    <string name="results_could_not_be_loaded">Результаты не могут быть загруженны</string>
+    <string name="no_results_for_this_query">Нет результатов для этого запроса</string>
+</resources>
