@@ -10,12 +10,25 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jdeveloperapps.imagesapp.R
 import com.jdeveloperapps.imagesapp.databinding.ItemUnsplashPhotoBinding
 
-class UnsplashPhotoAdapter :
+class UnsplashPhotoAdapter (private val listener: OnItemClickListener) :
     PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapter.PhotoViewHolder>(DiffCallback()) {
 
-    class PhotoViewHolder(
+    inner class PhotoViewHolder(
         private val binding: ItemUnsplashPhotoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
+
         fun bind(photo: UnsplashPhoto) {
             binding.apply {
                 Glide.with(itemView)
@@ -28,6 +41,10 @@ class UnsplashPhotoAdapter :
                 textViewUserName.text = photo.user.username
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(photo: UnsplashPhoto)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<UnsplashPhoto>() {
